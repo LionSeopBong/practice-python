@@ -1,0 +1,7 @@
+{
+  "camera": [
+    { "name": "Camera-A", "exposure": 100 },
+    { "name": "Camera-B", "exposure": 150 },
+    { "name": "Camera-C", "exposure": 200 }
+  ]
+}
