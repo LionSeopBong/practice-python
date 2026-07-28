@@ -1,0 +1,8 @@
+{
+  "robots": [
+    { "name": "UR5", "max_speed": 2.0 },
+    { "name": "RB5", "max_speed": 1.5 },
+    { "name": "TEST", "max_speed": 2.0, "port": "COM3" }
+  ],
+  "cameras": [{ "name": "Camera-A" }]
+}

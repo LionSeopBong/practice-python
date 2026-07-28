@@ -1,17 +1,10 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
-from device import Robot, Camera
+from device import load_device
 
 app = FastAPI()
 
-robots = {
-    "UR5": Robot(name="UR5", max_speed=2.0),
-    "RB5": Robot(name="RB5", max_speed=1.5),
-}
-
-cameras = {
-    "Camera-A": Camera(name="Camera-A"),
-}
+robots, cameras = load_device("configs/device.json")
 
 class MoveRequest(BaseModel):
    robot_name:str
@@ -44,5 +37,8 @@ async def capture_camera(camera_name:str):
    camera = cameras.get(camera_name)
    if camera is None:
     raise HTTPException(status_code=404, detail=f"'{camera_name}'을 찾을 수 없음")
+
    image = await camera.capture()
+   if image is None:
+     raise HTTPException(status_code=400, detail=camera.last_error)
    return {"success": True, "image":image}
