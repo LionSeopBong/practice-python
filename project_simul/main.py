@@ -18,13 +18,13 @@ def list_robots():
   return [r.get_status() for r in robots.values()]
 
 class MoveRequest(BaseModel):
-   robot_naem:str
+   robot_name:str
    position:str
    speed: float
 
 @app.post("/robots/move")
 async def move_robot(request: MoveRequest):
-   robot = robots.get(request.robot_naem)
+   robot = robots.get(request.robot_name)
    if robot is None:
       return {"success": False, "message": "존재하지 않는 로봇"}
    success = await robot.move(request.position, request.speed)
