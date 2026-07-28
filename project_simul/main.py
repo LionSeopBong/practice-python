@@ -36,7 +36,7 @@ async def move_robot(request: MoveRequest):
     raise HTTPException(status_code=404, detail=f"로봇 '{request.robot_name}'을 찾을 수 없음")
    success = await robot.move(request.position, request.speed)
    if not success:
-      raise HTTPException(status_code=404, detail=robot.last_error)
+      raise HTTPException(status_code=400, detail=robot.last_error)
    return {"success":True, "status": robot.get_status()}
 
 @app.post("/cameras/{camera_name}/capture")
